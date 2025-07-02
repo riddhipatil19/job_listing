@@ -8,7 +8,7 @@
         <version>3.5.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>org.riddhi</groupId>
+    <groupId>com.riddhi</groupId>
     <artifactId>joblisting_backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>joblisting_backend</name>

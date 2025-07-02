@@ -1,4 +1,4 @@
-package org.riddhi.joblisting_backend;
+package com.riddhi.joblisting_backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
