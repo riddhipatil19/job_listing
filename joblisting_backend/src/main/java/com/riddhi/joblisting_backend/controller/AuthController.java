@@ -2,28 +2,35 @@ package com.riddhi.joblisting_backend.controller;
 
 import com.riddhi.joblisting_backend.dto.JwtResponse;
 import com.riddhi.joblisting_backend.dto.LoginRequest;
+import com.riddhi.joblisting_backend.dto.SignupRequest;
 import com.riddhi.joblisting_backend.service.AuthService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin(origins = "*")
 public class AuthController {
 
     @Autowired
-     AuthService authService;
+    private AuthService authService;
+
+    @PostMapping("/register")
+    public String registerUser(@RequestBody SignupRequest signupRequest) {
+        return authService.registerUser(signupRequest);
+    }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
-        JwtResponse jwtResponse = authService.authenticateUser(loginRequest);
-        return ResponseEntity.ok(jwtResponse);
+    public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest loginRequest) {
+        try {
+            JwtResponse jwtResponse = authService.authenticateUser(loginRequest);
+            return ResponseEntity.ok(jwtResponse);
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() + "\"}");
+        }
     }
 }
