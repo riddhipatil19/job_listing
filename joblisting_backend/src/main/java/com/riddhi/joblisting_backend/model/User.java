@@ -12,6 +12,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    private String name;
+
     @Email
     @NotBlank
     @Column(unique = true)
@@ -24,7 +27,8 @@ public class User {
     public User() {}
 
     // Constructor
-    public User(String email, String password) {
+    public User(String name, String email, String password) {
+        this.name = name;
         this.email = email;
         this.password = password;
     }
@@ -36,6 +40,15 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    public @NotBlank String getName() {
+        return name;
+    }
+
+    public void setName(@NotBlank String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -52,5 +65,15 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

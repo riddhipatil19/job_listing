@@ -4,27 +4,36 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 public class LoginRequest {
-    @Email
-    @NotBlank
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Password is required")
     private String password;
 
-    //Getters and Setters for Email and password
-    public @Email @NotBlank String getEmail() {
+    // Default constructor
+    public LoginRequest() {}
+
+    // Constructor
+    public LoginRequest(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    // Getters and Setters
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(@Email @NotBlank String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public @NotBlank String getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(@NotBlank String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 }
