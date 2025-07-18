@@ -3,6 +3,7 @@ package com.riddhi.joblisting_backend.config;
 import com.riddhi.joblisting_backend.security.AuthEntryPointJwt;
 import com.riddhi.joblisting_backend.security.AuthTokenFilter;
 import com.riddhi.joblisting_backend.service.UserDetailsServiceImpl;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
