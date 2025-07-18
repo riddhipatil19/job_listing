@@ -10,6 +10,7 @@ const Register = () => {
         email: "",
         password: "",
         confirmPassword: "",
+        role: "CANDIDATE",
     })
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
@@ -29,26 +30,27 @@ const Register = () => {
         setLoading(true)
         setError("")
 
-        // Validate passwords match
         if (formData.password !== formData.confirmPassword) {
             setError("Passwords do not match")
             setLoading(false)
             return
         }
 
-        // Validate password length
         if (formData.password.length < 6) {
             setError("Password must be at least 6 characters long")
             setLoading(false)
             return
         }
 
-        // Send registration data (excluding confirmPassword)
+        // Remove confirmPassword before sending
         const { confirmPassword, ...registerData } = formData
+
+        console.log("Submitting registration data:", registerData)
+
         const result = await register(registerData)
 
         if (result.success) {
-            alert("Registration successful! Please login with your credentials.")
+            alert("Registration successful! Please login.")
             navigate("/login")
         } else {
             setError(result.error)
@@ -76,7 +78,6 @@ const Register = () => {
                             value={formData.name}
                             onChange={handleChange}
                             required
-                            placeholder="Enter your full name"
                         />
                     </div>
 
@@ -89,7 +90,6 @@ const Register = () => {
                             value={formData.email}
                             onChange={handleChange}
                             required
-                            placeholder="Enter your email"
                         />
                     </div>
 
@@ -102,7 +102,6 @@ const Register = () => {
                             value={formData.password}
                             onChange={handleChange}
                             required
-                            placeholder="Create a password (min 6 characters)"
                         />
                     </div>
 
@@ -115,8 +114,22 @@ const Register = () => {
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             required
-                            placeholder="Confirm your password"
                         />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Select Role</label>
+                        <select
+                            name="role"
+                            className="form-control"
+                            value={formData.role}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="CANDIDATE">Candidate</option>
+                            <option value="RECRUITER">Recruiter</option>
+                            <option value="ADMIN">Admin</option>
+                        </select>
                     </div>
 
                     <button type="submit" className="btn btn-primary" disabled={loading}>
