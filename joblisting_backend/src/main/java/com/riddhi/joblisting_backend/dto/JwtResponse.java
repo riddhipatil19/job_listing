@@ -1,57 +1,34 @@
 package com.riddhi.joblisting_backend.dto;
 
+import com.riddhi.joblisting_backend.model.Role;
+
 public class JwtResponse {
-    private String token = "mock-token-123456";
-    private String name;
+    private String token;
+    private String type = "Bearer";
+    private Long id;
     private String email;
-    private String role = "USER";
+    private Role role;
 
-    // Default constructor
-    public JwtResponse() {}
-
-    // Constructor
-    public JwtResponse(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
-
-    // Constructor with role
-    public JwtResponse(String name, String email, String role) {
-        this.name = name;
+    public JwtResponse(String accessToken, Long id, String email, Role role) {
+        this.token = accessToken;
+        this.id = id;
         this.email = email;
         this.role = role;
     }
 
     // Getters and Setters
-    public String getToken() {
-        return token;
-    }
+    public String getToken() { return token; }
+    public void setToken(String token) { this.token = token; }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
 
-    public String getName() {
-        return name;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
+    public Role getRole() { return role; }
+    public void setRole(Role role) { this.role = role; }
 }
