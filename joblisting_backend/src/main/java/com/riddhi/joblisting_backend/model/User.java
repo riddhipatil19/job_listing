@@ -1,5 +1,7 @@
 package com.riddhi.joblisting_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -39,23 +41,23 @@ public class User implements UserDetails {
     private Role role;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "is_active")
     private Boolean isActive = true;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     private CandidateProfile candidateProfile;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     private RecruiterProfile recruiterProfile;
 
     public User() {
-        this.createdAt = LocalDateTime.now();
     }
 
     public User(String name, String email, String password, Role role) {
-        this();
         this.name = name;
         this.email = email;
         this.password = password;
@@ -120,19 +122,4 @@ public class User implements UserDetails {
 
     public RecruiterProfile getRecruiterProfile() { return recruiterProfile; }
     public void setRecruiterProfile(RecruiterProfile recruiterProfile) { this.recruiterProfile = recruiterProfile; }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                ", createdAt=" + createdAt +
-                ", isActive=" + isActive +
-                ", candidateProfile=" + candidateProfile +
-                ", recruiterProfile=" + recruiterProfile +
-                '}';
-    }
 }

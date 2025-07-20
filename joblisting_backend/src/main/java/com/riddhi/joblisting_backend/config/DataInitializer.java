@@ -87,7 +87,7 @@ public class DataInitializer implements CommandLineRunner {
         candidateProfile2.setEducation("Bachelor's in Web Development");
         candidateProfileRepository.save(candidateProfile2);
 
-        User candidate3 = new User("candidate1","candidate3@email.com", passwordEncoder.encode("candidate123"), Role.CANDIDATE);
+        User candidate3 = new User("candidate3","candidate3@email.com", passwordEncoder.encode("candidate123"), Role.CANDIDATE);
         userRepository.save(candidate3);
 
         CandidateProfile candidateProfile3 = new CandidateProfile();

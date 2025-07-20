@@ -1,5 +1,6 @@
 package com.riddhi.joblisting_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,6 +12,7 @@ public class RecruiterProfile {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonManagedReference
     private User user;
 
     @Column(length = 100)
