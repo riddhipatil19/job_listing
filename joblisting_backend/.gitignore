@@ -34,4 +34,3 @@ build/
 
 ### Environment Files ###
 .env
-joblisting_backend/.env
