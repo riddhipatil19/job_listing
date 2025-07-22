@@ -1,0 +1,520 @@
+{
+  "info": {
+    "name": "Job Portal API",
+    "description": "Complete API collection for the Job Portal application with authentication, job management, applications, and admin features.",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{jwt_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"CANDIDATE\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    if (response.token) {",
+                  "        pm.collectionVariables.set('jwt_token', response.token);",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/logout",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "logout"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Jobs - Public",
+      "item": [
+        {
+          "name": "Get All Jobs",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/jobs/public",
+              "host": ["{{base_url}}"],
+              "path": ["api", "jobs", "public"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Job by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/jobs/public/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "jobs", "public", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search Jobs",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/jobs/public/search?q=developer&location=New York&jobType=FULL_TIME&minSalary=50000&maxSalary=100000",
+              "host": ["{{base_url}}"],
+              "path": ["api", "jobs", "public", "search"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "developer"
+                },
+                {
+                  "key": "location",
+                  "value": "New York"
+                },
+                {
+                  "key": "jobType",
+                  "value": "FULL_TIME"
+                },
+                {
+                  "key": "minSalary",
+                  "value": "50000"
+                },
+                {
+                  "key": "maxSalary",
+                  "value": "100000"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Jobs - Recruiter",
+      "item": [
+        {
+          "name": "Create Job",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Senior Frontend Developer\",\n  \"description\": \"We are looking for an experienced Frontend Developer to join our team. You will be responsible for developing user-facing web applications using modern JavaScript frameworks.\",\n  \"location\": \"New York, NY\",\n  \"salary\": 85000,\n  \"jobType\": \"FULL_TIME\",\n  \"skills\": \"JavaScript, React, TypeScript, HTML, CSS, Git\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/jobs/recruiter",
+              "host": ["{{base_url}}"],
+              "path": ["api", "jobs", "recruiter"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Recruiter Jobs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/recruiter",
+              "host": ["{{base_url}}"],
+              "path": ["api", "jobs", "recruiter"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Job",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Senior Frontend Developer - Updated\",\n  \"description\": \"Updated job description with new requirements and responsibilities.\",\n  \"location\": \"New York, NY (Remote Available)\",\n  \"salary\": 90000,\n  \"jobType\": \"FULL_TIME\",\n  \"skills\": \"JavaScript, React, TypeScript, HTML, CSS, Git, Node.js\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/jobs/recruiter/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "jobs", "recruiter", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Job",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/jobs/recruiter/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "jobs", "recruiter", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Applications - Candidate",
+      "item": [
+        {
+          "name": "Apply for Job",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobId\": 1,\n  \"coverLetter\": \"I am very interested in this position and believe my skills in React and JavaScript make me a perfect fit for this role. I have 3 years of experience in frontend development and am excited about the opportunity to contribute to your team.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/applications/candidate/apply",
+              "host": ["{{base_url}}"],
+              "path": ["api", "applications", "candidate", "apply"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Candidate Applications",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/applications/candidate",
+              "host": ["{{base_url}}"],
+              "path": ["api", "applications", "candidate"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Applications - Recruiter",
+      "item": [
+        {
+          "name": "Get Job Applications",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/applications/recruiter/job/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "applications", "recruiter", "job", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Application Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"INTERVIEW\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/applications/recruiter/1/status",
+              "host": ["{{base_url}}"],
+              "path": ["api", "applications", "recruiter", "1", "status"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Profiles",
+      "item": [
+        {
+          "name": "Get Candidate Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/profile/candidate",
+              "host": ["{{base_url}}"],
+              "path": ["api", "profile", "candidate"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Candidate Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"John Doe\",\n  \"phone\": \"+1-555-123-4567\",\n  \"bio\": \"Experienced frontend developer with a passion for creating user-friendly web applications. Skilled in React, JavaScript, and modern web technologies.\",\n  \"skills\": \"JavaScript, React, TypeScript, HTML, CSS, Git, Node.js, MongoDB\",\n  \"education\": \"Bachelor of Science in Computer Science from XYZ University (2018-2022)\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/profile/candidate",
+              "host": ["{{base_url}}"],
+              "path": ["api", "profile", "candidate"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Recruiter Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/profile/recruiter",
+              "host": ["{{base_url}}"],
+              "path": ["api", "profile", "recruiter"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Recruiter Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyName\": \"Tech Solutions Inc.\",\n  \"about\": \"We are a leading technology company focused on delivering innovative solutions to our clients. Our team is passionate about technology and committed to excellence.\",\n  \"contactPerson\": \"Jane Smith\",\n  \"phone\": \"+1-555-987-6543\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/profile/recruiter",
+              "host": ["{{base_url}}"],
+              "path": ["api", "profile", "recruiter"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/users",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Dashboard Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/dashboard",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "dashboard"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Toggle User Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/users/1/toggle-status",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users", "1", "toggle-status"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/api/profile")
 @Tag(name = "Profile Controller", description = "Endpoints for Candidate and Recruiter Profiles")
