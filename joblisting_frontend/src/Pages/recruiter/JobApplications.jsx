@@ -125,7 +125,7 @@ const JobApplications = () => {
         <div className={`p-6 rounded-lg shadow-md ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}>
           <div className="text-center">
             <p className="text-2xl font-bold text-yellow-600">
-              {jobApplications.filter((app) => app.status === "PENDING").length}
+              {jobApplications.filter((app) => app.status === "APPLIED").length}
             </p>
             <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>Pending</p>
           </div>
@@ -133,7 +133,7 @@ const JobApplications = () => {
         <div className={`p-6 rounded-lg shadow-md ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}>
           <div className="text-center">
             <p className="text-2xl font-bold text-blue-600">
-              {jobApplications.filter((app) => app.status === "INTERVIEW").length}
+              {jobApplications.filter((app) => app.status === "SHORTLISTED").length}
             </p>
             <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>Interview</p>
           </div>
@@ -141,9 +141,9 @@ const JobApplications = () => {
         <div className={`p-6 rounded-lg shadow-md ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}>
           <div className="text-center">
             <p className="text-2xl font-bold text-green-600">
-              {jobApplications.filter((app) => app.status === "ACCEPTED").length}
+              {jobApplications.filter((app) => app.status === "HIRED").length}
             </p>
-            <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>Accepted</p>
+            <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>Hired</p>
           </div>
         </div>
       </div>
@@ -174,9 +174,9 @@ const JobApplications = () => {
             onChange={(e) => handleFilterChange("status", e.target.value)}
           >
             <option value="">All Status</option>
-            <option value="PENDING">Pending</option>
-            <option value="INTERVIEW">Interview</option>
-            <option value="ACCEPTED">Accepted</option>
+            <option value="APPLIED">Applied</option>
+            <option value="SHORTLISTED">Shortlisted</option>
+            <option value="HIRED">Hired</option>
             <option value="REJECTED">Rejected</option>
           </select>
           {(filters.status || filters.search) && (

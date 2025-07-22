@@ -21,9 +21,22 @@ export const applicationService = {
     return response.data
   },
 
-  updateApplicationStatus: async (applicationId, status) => {
-    console.log("Updating application status:", { applicationId, status })
-    const response = await api.put(`/api/applications/recruiter/${applicationId}/status`, { status })
-    return response.data
-  },
+  // applicationService.js
+
+updateApplicationStatus: async (applicationId, status) => {
+  console.log("Updating application status:", { applicationId, status })
+
+  // This sends the status as a URL QUERY PARAMETER
+  const response = await api.put(
+    `/api/applications/recruiter/${applicationId}/status`, 
+    null, // The request has no body, so we pass null or an empty object.
+    { 
+      params: { 
+        status: status // This tells Axios to add "?status=VALUE" to the URL.
+      } 
+    }
+  )
+
+  return response.data
+},
 }

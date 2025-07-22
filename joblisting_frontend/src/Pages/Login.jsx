@@ -39,30 +39,30 @@ const Login = () => {
       console.log("Attempting login for:", formData.email)
       const response = await authService.login(formData)
       console.log("Login response:", response)
+if (response.token) {
+  // Pass the entire response object to the auth store
+  setLogin(response) // <--- FIX IS HERE
+  toast.success("Login successful!")
 
-      if (response.token) {
-        // Store token and update auth state
-        setLogin(response.token)
-        toast.success("Login successful!")
+  // Redirect based on user role from the response
+  const userRole = response.role || "CANDIDATE"
+  console.log("User role for redirect:", userRole)
 
-        // Redirect based on user role or original destination
-        const userRole = response.role || "CANDIDATE"
-        console.log("User role:", userRole)
-
-        switch (userRole) {
-          case "CANDIDATE":
-            navigate("/candidate/dashboard")
-            break
-          case "RECRUITER":
-            navigate("/recruiter/dashboard")
-            break
-          case "ADMIN":
-            navigate("/admin/dashboard")
-            break
-          default:
-            navigate(from)
-        }
-      } else {
+  switch (userRole) {
+    case "CANDIDATE":
+      navigate("/candidate/dashboard")
+      break
+    case "RECRUITER":
+      navigate("/recruiter/dashboard")
+      break
+    case "ADMIN":
+      navigate("/admin/dashboard")
+      break
+    default:
+      navigate(from) // Fallback to original destination
+  }
+}
+    else {
         throw new Error("No token received from server")
       }
     } catch (error) {
@@ -82,10 +82,10 @@ const Login = () => {
     >
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold">Sign in to your account</h2>
+          <h2 className={`mt-6 text-center text-3xl font-extrabold ${theme === "dark" ? "text-gray-50" : "text-gray-900"}`}>Sign in to your account</h2>
           <p className={`mt-2 text-center text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
             Or{" "}
-            <Link to="/register" className="font-medium text-blue-600 hover:text-blue-500">
+            <Link to="/register" className={`font-medium text-blue-600 hover:text-blue-500`}>
               create a new account
             </Link>
           </p>

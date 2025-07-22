@@ -8,13 +8,13 @@ const ApplicationCard = ({ application, isRecruiter = false, onStatusUpdate }) =
 
   const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {
-      case "pending":
+      case "applied":
         return "bg-yellow-100 text-yellow-800 border-yellow-200"
-      case "accepted":
+      case "hired":
         return "bg-green-100 text-green-800 border-green-200"
       case "rejected":
         return "bg-red-100 text-red-800 border-red-200"
-      case "interview":
+      case "shortlisted":
         return "bg-blue-100 text-blue-800 border-blue-200"
       default:
         return "bg-gray-100 text-gray-800 border-gray-200"
@@ -98,13 +98,13 @@ const ApplicationCard = ({ application, isRecruiter = false, onStatusUpdate }) =
       {isRecruiter && onStatusUpdate && (
         <div className="flex gap-2 mt-4">
           <button
-            onClick={() => handleStatusChange("INTERVIEW")}
+            onClick={() => handleStatusChange("SHORTLISTED")}
             className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
           >
             Interview
           </button>
           <button
-            onClick={() => handleStatusChange("ACCEPTED")}
+            onClick={() => handleStatusChange("HIRED")}
             className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
           >
             Accept

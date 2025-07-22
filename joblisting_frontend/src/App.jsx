@@ -10,8 +10,8 @@ import DashboardLayout from "./layouts/DashboardLayout"
 // Public Pages
 import Landing from "./pages/Landing"
 import Login from "./Pages/Login"
-import Register from "./pages/Register"
-import JobListings from "./pages/JobListings"
+import Register from "./Pages/Register"
+import JobListings from "./Pages/JobListings"
 import JobDetails from "./pages/JobDetails"
 import Page404 from "./pages/Page404"
 

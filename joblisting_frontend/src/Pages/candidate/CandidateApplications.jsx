@@ -107,9 +107,9 @@ const CandidateApplications = () => {
             onChange={(e) => handleFilterChange("status", e.target.value)}
           >
             <option value="">All Status</option>
-            <option value="PENDING">Pending</option>
-            <option value="INTERVIEW">Interview</option>
-            <option value="ACCEPTED">Accepted</option>
+            <option value="APPLIED">Applied</option>
+            <option value="SHORTLISTED">Shortlisted</option>
+            <option value="HIRED">Hired</option>
             <option value="REJECTED">Rejected</option>
           </select>
           {(filters.status || filters.search) && (

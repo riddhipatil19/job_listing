@@ -77,7 +77,7 @@ const JobListings = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-4">Find Your Dream Job</h1>
+          <h1 className={`text-4xl font-bold mb-4 ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>Find Your Dream Job</h1>
           <p className={`text-lg ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
             Discover thousands of job opportunities from top companies
           </p>

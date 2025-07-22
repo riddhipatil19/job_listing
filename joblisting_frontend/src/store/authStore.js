@@ -11,31 +11,35 @@ const useAuthStore = create(
       token: null,
 
       // Function to log in the user
-      setLogin: (token) => {
-        try {
-          const decoded = jwtDecode(token)
-          const user = {
-            email: decoded.sub,
-            role: decoded.role || "CANDIDATE", // Default to CANDIDATE if role not in token
-            exp: decoded.exp,
-            iat: decoded.iat,
-          }
+ 
+setLogin: (loginData) => { // <-- Changed to accept loginData object
+  try {
+    const { token, role, email } = loginData;
+    const decoded = jwtDecode(token);
 
-          // Store token in localStorage for immediate access
-          localStorage.setItem("token", token)
+    const user = {
+      email: email || decoded.sub,
+      role: role || "CANDIDATE", // Use role from loginData, fallback to CANDIDATE
+      exp: decoded.exp,
+      iat: decoded.iat,
+    };
 
-          set(() => ({
-            isLoggedIn: true,
-            user: user,
-            token: token,
-          }))
+    // Store token in localStorage for immediate access
+    localStorage.setItem("token", token);
 
-          console.log("User logged in:", { email: user.email, role: user.role })
-        } catch (error) {
-          console.error("Invalid token:", error)
-          get().setLogout()
-        }
-      },
+    set(() => ({
+      isLoggedIn: true,
+      user: user,
+      token: token,
+    }));
+
+    // This log will now show the correct role
+    console.log("User logged in:", { email: user.email, role: user.role });
+  } catch (error) {
+    console.error("Invalid token:", error);
+    get().setLogout();
+  }
+},
 
       // Function to log out the user
       setLogout: () => {

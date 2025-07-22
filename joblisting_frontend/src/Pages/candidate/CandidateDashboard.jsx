@@ -13,7 +13,6 @@ import { jobService } from "../../services/jobService"
 import LoadingSpinner from "../../components/LoadingSpinner"
 import ApplicationCard from "../../components/ApplicationCard"
 import JobCard from "../../components/JobCard"
-import ApiTestComponent from "../../components/ApiTestComponent"
 
 const CandidateDashboard = () => {
   const { theme } = useThemeStore((state) => state)
@@ -46,9 +45,9 @@ const CandidateDashboard = () => {
       // Calculate stats
       const stats = {
         totalApplications: applicationsData.length,
-        pendingApplications: applicationsData.filter((app) => app.status === "PENDING").length,
-        interviewApplications: applicationsData.filter((app) => app.status === "INTERVIEW").length,
-        acceptedApplications: applicationsData.filter((app) => app.status === "ACCEPTED").length,
+        pendingApplications: applicationsData.filter((app) => app.status === "APPLIED").length,
+        interviewApplications: applicationsData.filter((app) => app.status === "SHORTLISTED").length,
+        acceptedApplications: applicationsData.filter((app) => app.status === "HIRED").length,
       }
       setStats(stats)
 
@@ -83,21 +82,11 @@ const CandidateDashboard = () => {
               Here's your job search overview
             </p>
           </div>
-          <button
-            onClick={() => setShowApiTest(!showApiTest)}
-            className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 transition-colors text-sm"
-          >
-            {showApiTest ? "Hide" : "Show"} API Test
-          </button>
+       
         </div>
       </div>
 
-      {/* API Test Component (for debugging) */}
-      {showApiTest && (
-        <div className="mb-8">
-          <ApiTestComponent />
-        </div>
-      )}
+     
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
