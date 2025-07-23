@@ -8,7 +8,7 @@ import PublicLayout from "./layouts/PublicLayout"
 import DashboardLayout from "./layouts/DashboardLayout"
 
 // Public Pages
-import Landing from "./pages/Landing"
+import Landing from "./Pages/Landing"
 import Login from "./Pages/Login"
 import Register from "./Pages/Register"
 import JobListings from "./Pages/JobListings"
