@@ -8,12 +8,12 @@ import PublicLayout from "./layouts/PublicLayout"
 import DashboardLayout from "./layouts/DashboardLayout"
 
 // Public Pages
-import Landing from "./temp/Landing.jsx"
-import Login from "./temp/Login.jsx"
-import Register from "./temp/Register.jsx"
-import JobListings from "./temp/JobListings.jsx"
-import JobDetails from "./temp/JobDetails.jsx"
-import Page404 from "./temp/Page404.jsx"
+import Landing from "./pages/Landing.jsx"
+import Login from "./pages/Login.jsx"
+import Register from "./pages/Register.jsx"
+import JobListings from "./pages/JobListings.jsx"
+import JobDetails from "./pages/JobDetails.jsx"
+import Page404 from "./pages/Page404.jsx"
 
 // Protected Pages - Candidate
 import CandidateDashboard from "./pages/candidate/CandidateDashboard"
@@ -21,12 +21,12 @@ import CandidateApplications from "./pages/candidate/CandidateApplications"
 import CandidateProfile from "./pages/candidate/CandidateProfile"
 
 // Protected Pages - Recruiter
-import RecruiterDashboard from "./temp/recruiter/RecruiterDashboard"
-import RecruiterJobs from "./temp/recruiter/RecruiterJobs"
-import CreateJob from "./temp/recruiter/CreateJob"
-import EditJob from "./temp/recruiter/EditJob"
-import JobApplications from "./temp/recruiter/JobApplications"
-import RecruiterProfile from "./temp/recruiter/RecruiterProfile"
+import RecruiterDashboard from "./pages/recruiter/RecruiterDashboard"
+import RecruiterJobs from "./pages/recruiter/RecruiterJobs"
+import CreateJob from "./pages/recruiter/CreateJob"
+import EditJob from "./pages/recruiter/EditJob"
+import JobApplications from "./pages/recruiter/JobApplications"
+import RecruiterProfile from "./pages/recruiter/RecruiterProfile"
 
 // Protected Pages - Admin
 import AdminDashboard from "./pages/admin/AdminDashboard"
