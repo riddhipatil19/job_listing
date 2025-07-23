@@ -8,15 +8,15 @@ import PublicLayout from "./layouts/PublicLayout"
 import DashboardLayout from "./layouts/DashboardLayout"
 
 // Public Pages
-import Landing from "./Pages/Landing"
-import Login from "./Pages/Login"
-import Register from "./Pages/Register"
-import JobListings from "./Pages/JobListings"
+import Landing from "./pages/Landing"
+import Login from "./pages/Login"
+import Register from "./pages/Register"
+import JobListings from "./pages/JobListings"
 import JobDetails from "./pages/JobDetails"
 import Page404 from "./pages/Page404"
 
 // Protected Pages - Candidate
-import CandidateDashboard from "./Pages/candidate/CandidateDashboard"
+import CandidateDashboard from "./pages/candidate/CandidateDashboard"
 import CandidateApplications from "./pages/candidate/CandidateApplications"
 import CandidateProfile from "./pages/candidate/CandidateProfile"
 
