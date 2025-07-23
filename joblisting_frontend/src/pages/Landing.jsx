@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch, faBriefcase, faUsers } from "@fortawesome/free-solid-svg-icons"
-import useThemeStore from "../store/themeStore"
-import useAuthStore from "../store/authStore"
+import useThemeStore from "../store/themeStore.js"
+import useAuthStore from "../store/authStore.js"
 
 const Landing = () => {
   const { theme } = useThemeStore((state) => state)

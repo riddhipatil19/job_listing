@@ -1,18 +1,20 @@
 "use client"
 
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { useParams, useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSpinner, faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { toast } from "react-toastify"
-import useThemeStore from "../../store/themeStore"
-import useJobStore from "../../store/jobStore"
-import { jobService } from "../../services/jobService"
+import useThemeStore from "../../store/themeStore.js"
+import useJobStore from "../../store/jobStore.js"
+import { jobService } from "../../services/jobService.js"
+import LoadingSpinner from "../../components/LoadingSpinner.jsx"
 
-const CreateJob = () => {
+const EditJob = () => {
+  const { id } = useParams()
   const { theme } = useThemeStore((state) => state)
   const navigate = useNavigate()
-  const { addJob } = useJobStore((state) => state)
+  const { updateJob } = useJobStore((state) => state)
 
   const [formData, setFormData] = useState({
     title: "",
@@ -22,7 +24,34 @@ const CreateJob = () => {
     jobType: "FULL_TIME",
     skills: "",
   })
+  const [loading, setLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  useEffect(() => {
+    fetchJob()
+  }, [id])
+
+  const fetchJob = async () => {
+    setLoading(true)
+    try {
+      const response = await jobService.getJobById(id)
+      const job = response.data || response
+      setFormData({
+        title: job.title || "",
+        description: job.description || "",
+        location: job.location || "",
+        salary: job.salary || "",
+        jobType: job.jobType || "FULL_TIME",
+        skills: job.skills || "",
+      })
+    } catch (error) {
+      console.error("Error fetching job:", error)
+      toast.error("Failed to load job details")
+      navigate("/recruiter/jobs")
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -42,18 +71,22 @@ const CreateJob = () => {
         salary: formData.salary ? Number.parseInt(formData.salary) : 0,
       }
 
-      const response = await jobService.createJob(jobData)
-      const newJob = response.data || response
+      const response = await jobService.updateJob(id, jobData)
+      const updatedJob = response.data || response
 
-      addJob(newJob)
-      toast.success("Job posted successfully!")
+      updateJob(updatedJob)
+      toast.success("Job updated successfully!")
       navigate("/recruiter/jobs")
     } catch (error) {
-      console.error("Error creating job:", error)
-      toast.error(error.response?.data?.message || "Failed to create job")
+      console.error("Error updating job:", error)
+      toast.error(error.response?.data?.message || "Failed to update job")
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  if (loading) {
+    return <LoadingSpinner size="lg" text="Loading job details..." />
   }
 
   return (
@@ -69,9 +102,9 @@ const CreateJob = () => {
           <FontAwesomeIcon icon={faArrowLeft} />
           Back to Jobs
         </button>
-        <h1 className="text-3xl font-bold mb-2">Post New Job</h1>
+        <h1 className="text-3xl font-bold mb-2">Edit Job</h1>
         <p className={`text-lg ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
-          Create a new job posting to attract qualified candidates
+          Update your job posting details
         </p>
       </div>
 
@@ -189,7 +222,7 @@ const CreateJob = () => {
               className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting && <FontAwesomeIcon icon={faSpinner} className="animate-spin mr-2" />}
-              {isSubmitting ? "Posting..." : "Post Job"}
+              {isSubmitting ? "Updating..." : "Update Job"}
             </button>
           </div>
         </form>
@@ -198,4 +231,4 @@ const CreateJob = () => {
   )
 }
 
-export default CreateJob
+export default EditJob

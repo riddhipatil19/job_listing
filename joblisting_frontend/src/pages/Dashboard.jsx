@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import authStore from "../store/authStore";
-import Sidebar from "../components/Sidebar";
-import TopSearchBar from "../components/TopSearchBar"
-import themeStore from "../store/themeStore";
+import authStore from "../store/authStore.js";
+import Sidebar from "../components/Sidebar.jsx";
+import TopSearchBar from "../components/TopSearchBar.jsx"
+import themeStore from "../store/themeStore.js";
 
 
 const Dashboard = () => {

@@ -4,19 +4,18 @@ import { useState, useEffect } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 import { toast } from "react-toastify"
-import useThemeStore from "../../store/themeStore"
-import { profileService } from "../../services/profileService"
-import LoadingSpinner from "../../components/LoadingSpinner"
+import useThemeStore from "../../store/themeStore.js"
+import { profileService } from "../../services/profileService.js"
+import LoadingSpinner from "../../components/LoadingSpinner.jsx"
 
-const CandidateProfile = () => {
+const RecruiterProfile = () => {
   const { theme } = useThemeStore((state) => state)
 
   const [profile, setProfile] = useState({
-    fullName: "",
+    companyName: "",
+    about: "",
+    contactPerson: "",
     phone: "",
-    bio: "",
-    skills: "",
-    education: "",
   })
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -28,14 +27,13 @@ const CandidateProfile = () => {
   const fetchProfile = async () => {
     setLoading(true)
     try {
-      const response = await profileService.getCandidateProfile()
+      const response = await profileService.getRecruiterProfile()
       const profileData = response.data || response
       setProfile({
-        fullName: profileData.fullName || "",
+        companyName: profileData.companyName || "",
+        about: profileData.about || "",
+        contactPerson: profileData.contactPerson || "",
         phone: profileData.phone || "",
-        bio: profileData.bio || "",
-        skills: profileData.skills || "",
-        education: profileData.education || "",
       })
     } catch (error) {
       console.error("Error fetching profile:", error)
@@ -59,7 +57,7 @@ const CandidateProfile = () => {
     setSaving(true)
 
     try {
-      await profileService.updateCandidateProfile(profile)
+      await profileService.updateRecruiterProfile(profile)
       toast.success("Profile updated successfully!")
     } catch (error) {
       console.error("Error updating profile:", error)
@@ -77,9 +75,9 @@ const CandidateProfile = () => {
     <div className={`${theme === "dark" ? "text-white" : "text-gray-900"}`}>
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">My Profile</h1>
+        <h1 className="text-3xl font-bold mb-2">Company Profile</h1>
         <p className={`text-lg ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
-          Keep your profile updated to attract better opportunities
+          Update your company information to attract better candidates
         </p>
       </div>
 
@@ -88,72 +86,58 @@ const CandidateProfile = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium mb-2">Full Name</label>
+              <label className="block text-sm font-medium mb-2">Company Name</label>
               <input
                 type="text"
-                name="fullName"
+                name="companyName"
                 required
                 className={`w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                   theme === "dark" ? "bg-gray-700 border-gray-600 text-white" : "bg-white border-gray-300 text-gray-900"
                 }`}
-                placeholder="Enter your full name"
-                value={profile.fullName}
+                placeholder="Enter your company name"
+                value={profile.companyName}
                 onChange={handleChange}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">Phone Number</label>
+              <label className="block text-sm font-medium mb-2">Contact Person</label>
               <input
-                type="tel"
-                name="phone"
+                type="text"
+                name="contactPerson"
                 className={`w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                   theme === "dark" ? "bg-gray-700 border-gray-600 text-white" : "bg-white border-gray-300 text-gray-900"
                 }`}
-                placeholder="Enter your phone number"
-                value={profile.phone}
+                placeholder="Enter contact person name"
+                value={profile.contactPerson}
                 onChange={handleChange}
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Bio</label>
-            <textarea
-              name="bio"
-              rows={4}
-              className={`w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                theme === "dark" ? "bg-gray-700 border-gray-600 text-white" : "bg-white border-gray-300 text-gray-900"
-              }`}
-              placeholder="Tell us about yourself..."
-              value={profile.bio}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium mb-2">Skills</label>
+            <label className="block text-sm font-medium mb-2">Phone Number</label>
             <input
-              type="text"
-              name="skills"
+              type="tel"
+              name="phone"
               className={`w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                 theme === "dark" ? "bg-gray-700 border-gray-600 text-white" : "bg-white border-gray-300 text-gray-900"
               }`}
-              placeholder="e.g., JavaScript, React, Node.js (comma separated)"
-              value={profile.skills}
+              placeholder="Enter your phone number"
+              value={profile.phone}
               onChange={handleChange}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Education</label>
+            <label className="block text-sm font-medium mb-2">About Company</label>
             <textarea
-              name="education"
-              rows={3}
+              name="about"
+              rows={6}
               className={`w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                 theme === "dark" ? "bg-gray-700 border-gray-600 text-white" : "bg-white border-gray-300 text-gray-900"
               }`}
-              placeholder="Your educational background..."
-              value={profile.education}
+              placeholder="Tell candidates about your company, culture, and values..."
+              value={profile.about}
               onChange={handleChange}
             />
           </div>
@@ -174,4 +158,4 @@ const CandidateProfile = () => {
   )
 }
 
-export default CandidateProfile
+export default RecruiterProfile

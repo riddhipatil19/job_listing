@@ -13,12 +13,12 @@ import {
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons"
 import { toast } from "react-toastify"
-import useThemeStore from "../store/themeStore"
-import useAuthStore from "../store/authStore"
-import useJobStore from "../store/jobStore"
-import { jobService } from "../services/jobService"
-import { applicationService } from "../services/applicationService"
-import LoadingSpinner from "../components/LoadingSpinner"
+import useThemeStore from "../store/themeStore.js"
+import useAuthStore from "../store/authStore.js"
+import useJobStore from "../store/jobStore.js"
+import { jobService } from "../services/jobService.js"
+import { applicationService } from "../services/applicationService.js"
+import LoadingSpinner from "../components/LoadingSpinner.jsx"
 
 const JobDetails = () => {
   const { id } = useParams()

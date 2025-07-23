@@ -11,9 +11,9 @@ import {
   faBuilding,
 } from "@fortawesome/free-solid-svg-icons"
 import { toast } from "react-toastify"
-import useThemeStore from "../../store/themeStore"
-import { adminService } from "../../services/adminService"
-import LoadingSpinner from "../../components/LoadingSpinner"
+import useThemeStore from "../../store/themeStore.js"
+import { adminService } from "../../services/adminService.js"
+import LoadingSpinner from "../../components/LoadingSpinner.jsx"
 
 const AdminDashboard = () => {
   const { theme } = useThemeStore((state) => state)

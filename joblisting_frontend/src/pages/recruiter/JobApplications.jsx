@@ -5,12 +5,12 @@ import { useParams, useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeft, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { toast } from "react-toastify"
-import useThemeStore from "../../store/themeStore"
-import useApplicationStore from "../../store/applicationStore"
-import { applicationService } from "../../services/applicationService"
-import { jobService } from "../../services/jobService"
-import LoadingSpinner from "../../components/LoadingSpinner"
-import ApplicationCard from "../../components/ApplicationCard"
+import useThemeStore from "../../store/themeStore.js"
+import useApplicationStore from "../../store/applicationStore.js"
+import { applicationService } from "../../services/applicationService.js"
+import { jobService } from "../../services/jobService.js"
+import LoadingSpinner from "../../components/LoadingSpinner.jsx"
+import ApplicationCard from "../../components/ApplicationCard.jsx"
 
 const JobApplications = () => {
   const { jobId } = useParams()

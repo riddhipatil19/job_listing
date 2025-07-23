@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import themeStore from "../store/themeStore";
+import themeStore from "../store/themeStore.js";
 
 const Signup = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);

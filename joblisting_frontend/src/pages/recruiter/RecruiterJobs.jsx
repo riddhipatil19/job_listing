@@ -5,11 +5,11 @@ import { Link, useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons"
 import { toast } from "react-toastify"
-import useThemeStore from "../../store/themeStore"
-import useJobStore from "../../store/jobStore"
-import { jobService } from "../../services/jobService"
-import LoadingSpinner from "../../components/LoadingSpinner"
-import JobCard from "../../components/JobCard"
+import useThemeStore from "../../store/themeStore.js"
+import useJobStore from "../../store/jobStore.js"
+import { jobService } from "../../services/jobService.js"
+import LoadingSpinner from "../../components/LoadingSpinner.jsx"
+import JobCard from "../../components/JobCard.jsx"
 
 const RecruiterJobs = () => {
   const { theme } = useThemeStore((state) => state)

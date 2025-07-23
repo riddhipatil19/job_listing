@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import useThemeStore from "../store/themeStore"
+import useThemeStore from "../store/themeStore.js"
 
 const Page404 = () => {
   const { theme } = useThemeStore((state) => state)

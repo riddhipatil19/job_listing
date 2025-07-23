@@ -4,11 +4,11 @@ import { useState, useEffect } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch, faMapMarkerAlt, faDollarSign, faFilter } from "@fortawesome/free-solid-svg-icons"
 import { toast } from "react-toastify"
-import useThemeStore from "../store/themeStore"
-import useJobStore from "../store/jobStore"
-import { jobService } from "../services/jobService"
-import JobCard from "../components/JobCard"
-import LoadingSpinner from "../components/LoadingSpinner"
+import useThemeStore from "../store/themeStore.js"
+import useJobStore from "../store/jobStore.js"
+import { jobService } from "../services/jobService.js"
+import JobCard from "../components/JobCard.jsx"
+import LoadingSpinner from "../components/LoadingSpinner.jsx"
 
 const JobListings = () => {
   const { theme } = useThemeStore((state) => state)

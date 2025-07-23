@@ -5,9 +5,9 @@ import { Link, useNavigate, useLocation } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEye, faEyeSlash, faSpinner } from "@fortawesome/free-solid-svg-icons"
 import { toast } from "react-toastify"
-import useThemeStore from "../store/themeStore"
-import useAuthStore from "../store/authStore"
-import { authService } from "../services/authService"
+import useThemeStore from "../store/themeStore.js"
+import useAuthStore from "../store/authStore.js"
+import { authService } from "../services/authService.js"
 
 const Login = () => {
   const { theme } = useThemeStore((state) => state)

@@ -1,5 +1,5 @@
 import React from 'react'
-import themeStore from '../store/themeStore';
+import themeStore from '../store/themeStore.js';
 
 const About = () => {
 

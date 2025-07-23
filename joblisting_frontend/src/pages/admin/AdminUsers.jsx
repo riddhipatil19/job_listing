@@ -4,9 +4,9 @@ import { useState, useEffect } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch, faUserCheck, faUserTimes } from "@fortawesome/free-solid-svg-icons"
 import { toast } from "react-toastify"
-import useThemeStore from "../../store/themeStore"
-import { adminService } from "../../services/adminService"
-import LoadingSpinner from "../../components/LoadingSpinner"
+import useThemeStore from "../../store/themeStore.js"
+import { adminService } from "../../services/adminService.js"
+import LoadingSpinner from "../../components/LoadingSpinner.jsx"
 
 const AdminUsers = () => {
   const { theme } = useThemeStore((state) => state)
